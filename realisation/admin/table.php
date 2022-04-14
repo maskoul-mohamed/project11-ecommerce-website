@@ -83,6 +83,11 @@
                             <a class="aIN" href="Ajoute.php">
                                 <i class="far fa-check-square"></i>Insérer</a>
                         </li>
+                        <li class="active">
+                            <a class="aIN" href="analyse.php">
+                            <i class="fa-solid fa-magnifying-glass-chart">Analyse</i>
+                            </a>    
+                        </li>
                         
                         </li>
                      

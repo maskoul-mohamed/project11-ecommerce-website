@@ -1,5 +1,6 @@
 <?php
  include 'produit-categorie.php';
+ include 'productAnalyse.php';
 class Gestion{
 
     private $Connection = Null;
@@ -8,8 +9,6 @@ class Gestion{
       
             // $this->Connection = mysqli_connect('localhost', 'test', 'test123', 'e-commerce');
             $this->Connection = mysqli_connect('localhost', 'hicham', 'mlikihii', 'e-commerce');        //    
-         
-       
         
         return $this->Connection;
         
@@ -154,6 +153,24 @@ class Gestion{
         $RowDelet = "DELETE FROM categorie WHERE id_categorie= '$id'";
         mysqli_query($this->getConnection(), $RowDelet);
     
+    }
+
+    public function getTotalProductCart(){
+        $sql = "SELECT cart_line.idProduct, produit.nom_produit, SUM(productCartQuantity) 
+                FROM `cart_line` INNER JOIN produit on 
+                produit.id_produit=cart_line.idProduct GROUP by cart_line.idProduct";
+        $query = mysqli_query($this->getConnection(), $sql);
+        $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+        $listProducts = array();
+        foreach($result as $item){
+            $product = new ProductAnalyse();
+            $product->setIdProduct($item["idProduct"]);
+            $product->setNameProduct($item["nom_produit"]);
+            $product->setTotalInCart($item["SUM(productCartQuantity)"]);
+            array_push($listProducts, $product);
+        }
+        
+        return json_encode($result);
     }
 
 }
