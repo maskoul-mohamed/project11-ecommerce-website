@@ -70,7 +70,7 @@ $cartLineList = $cart->getCartLineList()[0];
         <div class="wrapper">
 
             <!--== Start Header Wrapper ==-->
-            <header class="header-area sticky-header header-transparent">
+            <header class="header-area sticky-header">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-5 col-lg-2 col-xl-1">
@@ -189,73 +189,46 @@ $cartLineList = $cart->getCartLineList()[0];
             <main class="main-content">
 
                 <!--== Start Hero Area Wrapper ==-->
-                <section class="hero-slider-area position-relative">
-                    <div class="swiper hero-slider-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide hero-slide-item">
-                                <div class="container">
-                                    <div class="row align-items-center position-relative">
-                                        <div class="col-12 col-md-6">
-                                            <div class="hero-slide-content">
-                                                <div class="hero-slide-text-img"><img
-                                                        src="assets/images/slider/text-theme.webp" width="427"
-                                                        height="232" alt="Image"></div>
-                                                <h2 class="hero-slide-title">CLEAN FRESH</h2>
-                                                <p class="hero-slide-desc">Lorem ipsum dolor sit amet, consectetur
-                                                    adipiscing elit ut aliquam, purus sit amet luctus venenatis.</p>
-                                                <a class="btn btn-border-dark" href="index.php">BUY NOW</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="hero-slide-thumb">
-                                                <img src="./img/ezgif.com-gif-maker.png" width="841" height="832"
-                                                    alt="Image">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="hero-slide-text-shape"><img src="assets/images/slider/text1.webp" width="70"
-                                        height="955" alt="Image"></div>
-                                <div class="hero-slide-social-shape"></div>
-                            </div>
-                            <div class="swiper-slide hero-slide-item">
-                                <div class="container">
-                                    <div class="row align-items-center position-relative">
-                                        <div class="col-12 col-md-6">
-                                            <div class="hero-slide-content">
-                                                <div class="hero-slide-text-img"><img
-                                                        src="assets/images/slider/text-theme.webp" width="427"
-                                                        height="232" alt="Image"></div>
-                                                <h2 class="hero-slide-title">Facial Cream</h2>
-                                                <p class="hero-slide-desc">Lorem ipsum dolor sit amet, consectetur
-                                                    adipiscing elit ut aliquam, purus sit amet luctus venenatis.</p>
-                                                <a class="btn btn-border-dark" href="index.php">BUY NOW</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="hero-slide-thumb">
-                                                <img src="assets/images/slider/slider2.webp" width="841" height="832"
-                                                    alt="Image">
+                       <!--== Start Hero Area Wrapper ==-->
+            <section class="hero-two-slider-area position-relative">
+                <div class="swiper hero-two-slider-container">
+                    <div class="swiper-wrapper">
+                       <?php  
+                        $topThree = $cartManager->getTopThree();
+                        foreach($topThree as $item){
+                       ?>
+                        <div class="swiper-slide hero-two-slide-item">
+                            <div class="container">
+                                <div class="row align-items-center position-relative">
+                                    <div class="col-12 col-md-6">
+                                        <div class="hero-two-slide-content">
+                                            <div class="hero-two-slide-text-img"><img src="assets/images/slider/text-light.webp" width="427" height="232" alt="Image"></div>
+                                            <h2 class="hero-two-slide-title">
+                                                <?php $name = explode(' ', $item->getName());
+                                                        echo implode(" ", array_splice($name, 0, 2));
+                                                ?>
+                                            </h2>
+                                            <p class="hero-two-slide-desc"><?php echo $item->getDescription()?></p>
+                                            <div class="hero-two-slide-meta">
+                                                <a class="btn btn-border-primary" href="product-details.php?id=<?php echo $item->getId()?>">MORE DETAILS</a>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="hero-two-slide-thumb">
+                                        <img src="./img/<?php echo $item->getImage()?>" width="690" height="690" alt="Image">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="hero-slide-text-shape"><img src="assets/images/slider/text1.webp" width="70"
-                                        height="955" alt="Image"></div>
-                                <div class="hero-slide-social-shape"></div>
                             </div>
                         </div>
-                        <!--== Add Pagination ==-->
-                        <div class="hero-slider-pagination"></div>
+                        <?php }?>
                     </div>
-                    <div class="hero-slide-social-media">
-                        <a href="https://www.pinterest.com/" target="_blank" rel="noopener"><i
-                                class="fa fa-pinterest-p"></i></a>
-                        <a href="https://twitter.com/" target="_blank" rel="noopener"><i class="fa fa-twitter"></i></a>
-                        <a href="https://www.facebook.com/" target="_blank" rel="noopener"><i
-                                class="fa fa-facebook"></i></a>
-                    </div>
-                </section>
+                    <!--== Add Pagination ==-->
+                    <div class="hero-two-slider-pagination"></div>
+                </div>
+            </section>
+            <!--== End Hero Area Wrapper ==-->
                 <!--== End Hero Area Wrapper ==-->
 
                 <!--== Start Product Category Area Wrapper ==-->

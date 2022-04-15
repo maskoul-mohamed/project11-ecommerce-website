@@ -77,7 +77,6 @@ class CartManager {
     
     // pour ajouter session
     public function set($cart, $product, $quantity){
-        session_start();
         $_SESSION["cart"] = $cart;
         array_push($_SESSION["product"], $product);
         if(!isset($_SESSION["quantity"])){
@@ -276,4 +275,23 @@ public function getAllProducts(){
             mysqli_query($this->getConnection(), $sql);
 
         }
+
+        
+    function getTopThree(){
+        $sql = "SELECT cart_line.idProduct, produit.nom_produit, produit.prix, produit.photo, produit.description, SUM(productCartQuantity) as totalQuantity FROM `cart_line` INNER JOIN produit on produit.id_produit=cart_line.idProduct GROUP by cart_line.idProduct LIMIT 3; ";
+        $query = mysqli_query($this->getConnection(), $sql);
+        $produits_data = mysqli_fetch_all($query, MYSQLI_ASSOC);
+        $arrayData = array();
+        foreach ( $produits_data as $value_Data) { 
+                    $product = new Product();
+                    $product->setId($value_Data['idProduct']);
+                    $product->setName($value_Data['nom_produit']);
+                    $product->setPrice($value_Data['prix']);
+                    $product->setDescription($value_Data['description']);
+                    $product->setImage($value_Data["photo"]);   
+                    array_push($arrayData, $product);
+                   
+                }
+                   return $arrayData;   
+    }
     }
