@@ -156,7 +156,7 @@ class Gestion{
     }
 
     public function getTotalProductCart(){
-        $sql = "SELECT cart_line.idProduct, produit.nom_produit, SUM(productCartQuantity) 
+        $sql = "SELECT cart_line.idProduct, produit.nom_produit, SUM(productCartQuantity) as totalQuantity
                 FROM `cart_line` INNER JOIN produit on 
                 produit.id_produit=cart_line.idProduct GROUP by cart_line.idProduct";
         $query = mysqli_query($this->getConnection(), $sql);
@@ -166,11 +166,11 @@ class Gestion{
             $product = new ProductAnalyse();
             $product->setIdProduct($item["idProduct"]);
             $product->setNameProduct($item["nom_produit"]);
-            $product->setTotalInCart($item["SUM(productCartQuantity)"]);
+            $product->setTotalInCart($item["totalQuantity"]);
             array_push($listProducts, $product);
         }
         
-        return json_encode($result);
+        return $result;
     }
 
 }
